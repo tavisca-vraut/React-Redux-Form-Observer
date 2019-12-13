@@ -5,13 +5,13 @@ import './input.info.component.css';
 
 class InputInfo extends Component {
     render() {
-        const form = this.props.form[this.props.fieldName];
+        const inputInfo = this.props.form[this.props.formName][this.props.fieldName];
         return (
             <div className="container">
                 <h2>{ this.props.fieldName }</h2>
-                <p><span>Value</span>: { form.value }</p>
-                <p><span>hasFocus</span>: { `${form.isFocused}` }</p>
-                <p><span>isTouched</span>: { `${form.isTouched}` }</p>
+                <p><span>Value</span>: { inputInfo.value }</p>
+                <p><span>hasFocus</span>: { `${inputInfo.isFocused}` }</p>
+                <p><span>isTouched</span>: { `${inputInfo.isTouched}` }</p>
             </div>
         );
     }

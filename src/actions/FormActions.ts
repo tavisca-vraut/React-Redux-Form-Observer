@@ -1,16 +1,16 @@
 import { IAction } from "../contracts/IAction";
-import { IForm } from "../contracts/IForm";
+import {IForms} from "../contracts/IForms";
 
 import Actions from "./ActionsTypes"
 
 class FormActions {
-    static actionHandlerMap: { [key: string]: (state: IForm, action: IAction) => IForm } = {
+    static actionHandlerMap: { [key: string]: (state: IForms, action: IAction) => IForms } = {
         [Actions.CHANGE_VALUE]: FormActions.onValueChange,
         [Actions.FOCUSED]: FormActions.onFocusHandler,
         [Actions.BLURRED]: FormActions.onBlurHandler,
     };
 
-    static processAction(state: IForm, action: IAction) {
+    static processAction(state: IForms, action: IAction) {
         if (this.actionHandlerMap[action.type] === undefined) {
             return state;
         }
@@ -18,30 +18,37 @@ class FormActions {
         return this.actionHandlerMap[action.type](state, action);
     }
 
-    static onValueChange(state: IForm, action: IAction): IForm {
-        const new_state = { ...state };
-        new_state[action.fieldName] = { ...state[action.fieldName] };
-
-        new_state[action.fieldName].value = action.payload;
-
-        return new_state;
+    static getDuplicateState(state: IForms, action: IAction): IForms {
+        // const newState = { ...state };
+        // newState[action.formName] = { ...state[action.formName] };
+        // newState[action.formName][action.fieldName] =
+        //     { ...state[action.formName][action.fieldName] };
+        //
+        // return newState;
+        return JSON.parse(JSON.stringify(state));
     }
-    static onFocusHandler(state: IForm, action: IAction): IForm {
-        const new_state = { ...state };
-        new_state[action.fieldName] = { ...state[action.fieldName] };
 
-        new_state[action.fieldName].isTouched = true;
-        new_state[action.fieldName].isFocused = true;
+    static onValueChange(state: IForms, action: IAction): IForms {
+        const newState = FormActions.getDuplicateState(state, action);
 
-        return new_state;
+        newState[action.formName][action.fieldName].value = action.payload;
+
+        return newState;
     }
-    static onBlurHandler(state: IForm, action: IAction): IForm {
-        const new_state = { ...state };
-        new_state[action.fieldName] = { ...state[action.fieldName] };
+    static onFocusHandler(state: IForms, action: IAction): IForms {
+        const newState = FormActions.getDuplicateState(state, action);
 
-        new_state[action.fieldName].isFocused = false;
+        newState[action.formName][action.fieldName].isTouched = true;
+        newState[action.formName][action.fieldName].isFocused = true;
 
-        return new_state;
+        return newState;
+    }
+    static onBlurHandler(state: IForms, action: IAction): IForms {
+        const newState = FormActions.getDuplicateState(state, action);
+
+        newState[action.formName][action.fieldName].isFocused = false;
+
+        return newState;
     }
 }
 

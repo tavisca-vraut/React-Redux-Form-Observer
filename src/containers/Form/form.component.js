@@ -6,15 +6,16 @@ import InputComponent from "../Input/input.component";
 
 import Actions from "../../actions/ActionsTypes";
 
+
 class FormComponent extends Component {
     onInputChange(fieldName, e) {
-        this.props.changeValue(e.target.value, fieldName);
+        this.props.changeValue(this.props.name, e.target.value, fieldName);
     }
     onInputFocus(fieldName, e) {
-        this.props.inputFocus(fieldName);
+        this.props.inputFocus(this.props.name, fieldName);
     }
     onInputBlur(fieldName, e) {
-        this.props.inputBlur(fieldName);
+        this.props.inputBlur(this.props.name, fieldName);
     }
     formSubmitHandler(e) {
         e.preventDefault();
@@ -26,13 +27,13 @@ class FormComponent extends Component {
             <div className="form">
                 <form>
                     <InputComponent
-                        name={ this.props.formControls["First Name"].name }
+                        name={ this.props.formControls[this.props.name]["First Name"].name }
                         onChange={ this.onInputChange.bind(this) }
                         onFocus={ this.onInputFocus.bind(this) }
                         onBlur={ this.onInputBlur.bind(this) }
                     />
                     <InputComponent
-                        name={ this.props.formControls["Last Name"].name }
+                        name={ this.props.formControls[this.props.name]["Last Name"].name }
                         onChange={ this.onInputChange.bind(this) }
                         onFocus={ this.onInputFocus.bind(this) }
                         onBlur={ this.onInputBlur.bind(this) }
@@ -56,23 +57,26 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeValue: (value, fieldName) => {
+        changeValue: (formName, value, fieldName) => {
             dispatch({
                 type: Actions.CHANGE_VALUE,
                 fieldName,
+                formName,
                 payload: value
             });
         },
-        inputFocus: fieldName => {
+        inputFocus: (formName, fieldName) => {
             dispatch({
                 type: Actions.FOCUSED,
-                fieldName
+                fieldName,
+                formName
             });
         },
-        inputBlur: fieldName => {
+        inputBlur: (formName, fieldName) => {
             dispatch({
                 type: Actions.BLURRED,
-                fieldName
+                fieldName,
+                formName
             });
         },
     };
