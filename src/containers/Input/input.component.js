@@ -11,6 +11,7 @@ class InputComponent extends Component {
     }
 
     onChange(e) {
+        console.log(e);
         this.props.onChange(this.props.name, e);
     }
 
@@ -21,9 +22,9 @@ class InputComponent extends Component {
                 <input
                     type="text"
                     id={ this.props.name }
-                    onFocus={ () => this.onFocus() }
-                    onBlur={ () => this.onBlur() }
-                    onChange={ () => this.onChange() }
+                    onFocus={ this.onFocus.bind(this) }
+                    onBlur={ this.onBlur.bind(this) }
+                    onChange={ this.onChange.bind(this) }
                     placeholder={ this.props.name}
                     autoComplete="off"
                 />

@@ -1,5 +1,6 @@
 export interface IAction {
-    type: string,
-    payload: any,
-    fieldName: string
+    type: string;
+    payload: any;
+    formName: string;
+    fieldName: string;
 }

@@ -1,16 +1,16 @@
 import { IAction } from "../contracts/IAction";
-import { IForm } from "../contracts/IForm";
+import {IForms} from "../contracts/IForms";
 
 import Actions from "./ActionsTypes"
 
 class FormActions {
-    static actionHandlerMap: { [key: string]: (state: IForm, action: IAction) => IForm } = {
+    static actionHandlerMap: { [key: string]: (state: IForms, action: IAction) => IForms } = {
         [Actions.CHANGE_VALUE]: FormActions.onValueChange,
         [Actions.FOCUSED]: FormActions.onFocusHandler,
         [Actions.BLURRED]: FormActions.onBlurHandler,
     };
 
-    static processAction(state: IForm, action: IAction) {
+    static processAction(state: IForms, action: IAction) {
         if (this.actionHandlerMap[action.type] === undefined) {
             return state;
         }
@@ -18,7 +18,7 @@ class FormActions {
         return this.actionHandlerMap[action.type](state, action);
     }
 
-    static onValueChange(state: IForm, action: IAction): IForm {
+    static onValueChange(state: IForms, action: IAction): IForms {
         const new_state = { ...state };
         new_state[action.fieldName] = { ...state[action.fieldName] };
 
@@ -26,20 +26,20 @@ class FormActions {
 
         return new_state;
     }
-    static onFocusHandler(state: IForm, action: IAction): IForm {
+    static onFocusHandler(state: IForms, action: IAction): IForms {
         const new_state = { ...state };
         new_state[action.fieldName] = { ...state[action.fieldName] };
 
-        new_state[action.fieldName].isTouched = true;
-        new_state[action.fieldName].isFocused = true;
+        new_state[action.formName][action.fieldName].isTouched = true;
+        new_state[action.formName][action.fieldName].isFocused = true;
 
         return new_state;
     }
-    static onBlurHandler(state: IForm, action: IAction): IForm {
+    static onBlurHandler(state: IForms, action: IAction): IForms {
         const new_state = { ...state };
         new_state[action.fieldName] = { ...state[action.fieldName] };
 
-        new_state[action.fieldName].isFocused = false;
+        new_state[action.formName][action.fieldName].isFocused = false;
 
         return new_state;
     }

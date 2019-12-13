@@ -7,12 +7,22 @@ import InputInfo from "../InputInfo/input.info.component";
 function AppComponent() {
   return (
     <div className="App">
-      <FormComponent />
+        <div className="form-n">
+            <FormComponent />
 
-      <div className="form-info-container">
-          <InputInfo fieldName="First Name" />
-          <InputInfo fieldName="Last Name" />
-      </div>
+            <div className="form-info-container">
+                <InputInfo fieldName="First Name" />
+                <InputInfo fieldName="Last Name" />
+            </div>
+        </div>
+        <div className="form-n">
+            <FormComponent />
+
+            <div className="form-info-container">
+                <InputInfo fieldName="First Name" />
+                <InputInfo fieldName="Last Name" />
+            </div>
+        </div>
     </div>
   );
 }
