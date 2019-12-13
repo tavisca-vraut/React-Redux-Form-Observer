@@ -1,0 +1,13 @@
+.container {
+    /*border: 1px solid green;*/
+    width: fit-content;
+    margin: auto;
+}
+
+.container p {
+    width: fit-content;
+}
+
+.container p span {
+    font-weight: bold;
+}

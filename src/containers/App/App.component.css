@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+.form-info-container {
+    width: 400px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
+}
