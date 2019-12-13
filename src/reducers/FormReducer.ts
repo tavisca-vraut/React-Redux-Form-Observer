@@ -22,8 +22,8 @@ function getInitialFormInfo(): IForm {
 }
 
 const initialFormState: IForms = {
-    "form1": { ...getInitialFormInfo(), name: "form1"},
-    "form2": { ...getInitialFormInfo(), name: "form2"}
+    "form1": getInitialFormInfo(),
+    "form2": getInitialFormInfo()
 };
 
 

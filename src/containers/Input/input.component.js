@@ -21,7 +21,6 @@ class InputComponent extends Component {
                 <label htmlFor={ this.props.name }>{ this.props.name }: </label>
                 <input
                     type="text"
-                    id={ this.props.name }
                     onFocus={ this.onFocus.bind(this) }
                     onBlur={ this.onBlur.bind(this) }
                     onChange={ this.onChange.bind(this) }
